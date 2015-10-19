@@ -64,6 +64,6 @@ gun.get('some/key').synchronous(obj, opt)
 
 ##Warning
 
-Synchronous operations are, well, synchronous. But the data is asynchronous, which means it might take time for the data to show up. Do not use this extension unless it does not matter how long it takes for the data to arrive. An example of that would be like a game, where you are using requestAnimationFrame so the data is getting processed continuously anyways - the async nature of the data doesn't matter much other than a few wassted frames.
+Synchronous operations are, well, synchronous. But the data is asynchronous, which means it might take time for the data to show up. Do not use this extension unless it does not matter how long it takes for the data to arrive. An example of that would be like a game, where you are using requestAnimationFrame so the data is getting processed continuously anyways - the async nature of the data doesn't matter much other than a few wasted frames. Elsewise it is better to use gun events to react to the data as it arrives, since it notifies you when it does.
 
 This is intended for when you are using GUN in a document oriented way, if you use it with graph or relational based data it might result in an infinite loop or loading your entire dataset!
