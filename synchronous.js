@@ -5,7 +5,7 @@
 
 Gun.chain.synchronous = function(obj, opt){
 	var gun = this;
-	if(!Gun.obj.is(obj)){ 
+	if(!Gun.obj.is(obj)){
 		console.log("First parameter is not an object to synchronize too!");
 		return gun;
 	}
@@ -16,7 +16,7 @@ Gun.chain.synchronous = function(obj, opt){
 			if(!obj){ return }
 			if(Gun._.meta == field){ return }
 			if(Gun.obj.is(val)){
-				var soul = Gun.is.soul(val);
+				var soul = Gun.is.rel(val);
 				if(opt.ctx[soul + field]){ return } // do not re-subscribe.
 				opt.ctx[soul + field] = true; // unique subscribe!
 				this.path(field).synchronous(obj[field] = obj[field] || {}, Gun.obj.copy(opt));
