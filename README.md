@@ -1,69 +1,48 @@
 # synchronous
-One way binding of gun documents into a local object for synchronous use.
+Syncs gun data to an object.
 
-You are probably used to doing this:
+For uses that require high performance (such as rendering loops), the synchronous extension can help tremendously. It'll keep a local object updated with the latest information as it comes in, so instead of querying gun's API (which can be a performance drag), you can just use the local object.
 
-```javascript
-var mouse = {};
-$(document).on('mousemove', function(e){
-  mouse.x = e.pageX;
-  mouse.y = e.pageY;
-});
+**Pros**
+ - increased performance
 
-$("#where-is-the-mouse").click(function(){
-  console.log("your mouse is at: " + mouse.x + ", " + mouse.y);
-});
-```
+**Cons**
+ - only supports document structures
+ - still async in nature
+ - no change events
 
-Well, you might want something similar with GUN. It is annoying doing:
+## API
+The extension exposes a new method for gun, called `.sync`. It takes two arguments:
 
-```javascript
-// this is annoying!
-$("#what-is-my-data").click(function(){
-  ref.val(function(val){
-    console.log("your data is!", val);
-  });
-});
-```
+ - The object to sync to
+ - The options to use
 
-Instead it would be cool if we could do this:
+> **Note:** the object will be populated asynchronously
 
 ```javascript
-var data = {};
-var ref = Gun().get('my/data').synchronous(data);
-
-$("#what-is-my-data").click(function(){
-  console.log("your data is!", data);
-});
+var players = {}
+gun.get('players').sync(players)
 ```
 
-Well guess what! You already can! Just include this gun extension.
+## Options
+There is only one configuration option: whether or not to sync the metadata. If you need to access the UUID, or need to make local changes and `.put` them into gun, you'll need to keep the metadata.
 
-```html
-<html>
-  <head>
-    <script src="https://rawgit.com/amark/gun/master/gun.js"></script>
-    <script src="https://rawgithub.com/gundb/synchronous/master/synchronous.js"></script>
-    <script>
-      // your code here!
-    </script>
-  </head>
-</html>
-```
-
-Or of course download the extension and include a reference to it locally.
-
-##API
 ```javascript
-gun.get('some/key').synchronous(obj, opt)
+gun.get('players').sync(players, {
+	meta: true
+})
 ```
 
-- `obj` is your local javascript object that you want to use synchronously, it will get one-way bindings of gun updates applied to it - including sub objects.
+Since this is the most common (and only) option available, there's a shorthand for it:
 
-- `opt` no options currently.
+```javascript
+gun.get('players').sync(players, true)
+```
 
-##Warning
+Both are equivalent.
+
+## Warning
 
 Synchronous operations are, well, synchronous. But the data is asynchronous, which means it might take time for the data to show up. Do not use this extension unless it does not matter how long it takes for the data to arrive. An example of that would be like a game, where you are using requestAnimationFrame so the data is getting processed continuously anyways - the async nature of the data doesn't matter much other than a few wasted frames. Elsewise it is better to use gun events to react to the data as it arrives, since it notifies you when it does.
 
-This is intended for when you are using GUN in a document oriented way, if you use it with graph or relational based data it might result in an infinite loop or loading your entire dataset!
+This is intended for when you are using GUN in a document oriented way, if you use it with graph or relational based data it might result in an infinite loop or loading your entire dataset.
