@@ -9,7 +9,6 @@ For uses that require high performance (such as rendering loops), the synchronou
 **Cons**
  - only supports document structures
  - still async in nature
- - no change events
 
 ## API
 The extension exposes a new method for gun, called `.sync`. It takes two arguments:
@@ -21,8 +20,10 @@ The extension exposes a new method for gun, called `.sync`. It takes two argumen
 
 ```javascript
 var players = {}
-gun.get('players').sync(players)
+gun.get('players').sync(players, function(players){})
 ```
+
+Now supports a callback. Warning, gets called lots of times.
 
 ## Options
 There is only one configuration option: whether or not to sync the metadata. If you need to access the UUID, or need to make local changes and `.put` them into gun, you'll need to keep the metadata.
