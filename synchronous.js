@@ -50,8 +50,8 @@
 				}
 				obj[field] = val;
 			}, this);
+			cb(o || obj);
 		});
-		cb(o || obj);
 		return gun;
 	};
 
