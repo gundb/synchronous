@@ -20,7 +20,7 @@ The extension exposes a new method for gun, called `.sync`. It takes two argumen
 
 ```javascript
 var players = {}
-gun.get('players').sync(players, function(players){})
+gun.get('players').sync(players, {}, function(players){})
 ```
 
 Now supports a callback. Warning, gets called lots of times.
