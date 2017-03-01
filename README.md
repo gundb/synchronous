@@ -26,7 +26,7 @@ gun.get('players').sync(players, {}, function(players){})
 Now supports a callback. Warning, gets called lots of times.
 
 ## Options
-There is only one configuration option: whether or not to sync the metadata. If you need to access the UUID, or need to make local changes and `.put` them into gun, you'll need to keep the metadata.
+There is only one configuration option: whether or not to sync the metadata. If you need to access the UUID, or need to make local changes and `.put` them into gun, you'll need to keep the metadata. *Default is false*
 
 ```javascript
 gun.get('players').sync(players, {
