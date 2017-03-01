@@ -26,7 +26,7 @@
 				if (!obj) {
 					return;
 				}
-				if (field === Gun._.meta || field === Gun._.soul) {
+				if (field === '_' || field === '#') {
 					if (opt.meta) {
 						obj[field] = val;
 					}
