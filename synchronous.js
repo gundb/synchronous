@@ -33,7 +33,7 @@
 					return;
 				}
 				if (Gun.obj.is(val)) {
-					var soul = Gun.is.rel(val);
+					var soul = Gun.val.rel.is(val);
 					if (opt.ctx[soul + field]) {
 						// don't re-subscribe.
 						return;
