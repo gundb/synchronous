@@ -14,7 +14,7 @@
 				meta: opt
 			};
 		}
-		if(Gun.fns.is(opt)){
+		if(Gun.fn.is(opt)){
 			cb = opt;
 			opt = null;
 		}
